@@ -4,17 +4,17 @@ import interfaces.INode;
 
 public class Node implements INode {
 
-    private String node;
+    private String code;
     private String renderer;
 
-    public Node(String node, String renderer) {
-        this.node = node;
+    public Node(String code, String renderer) {
+        this.code = code;
         this.renderer = renderer;
     }
 
     @Override
-    public String getNode() {
-        return node;
+    public String getCode() {
+        return code;
     }
 
     @Override

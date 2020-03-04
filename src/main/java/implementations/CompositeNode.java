@@ -9,8 +9,8 @@ public class CompositeNode extends Node implements ICompositeNode {
 
     private List<INode> nodeList;
 
-    public CompositeNode(String node, String renderer, List<INode> nodeList) {
-        super(node, renderer);
+    public CompositeNode(String code, String renderer, List<INode> nodeList) {
+        super(code, renderer);
         this.nodeList = nodeList;
     }
 

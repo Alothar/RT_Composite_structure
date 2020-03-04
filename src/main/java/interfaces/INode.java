@@ -3,7 +3,7 @@ package interfaces;
 import java.util.stream.Stream;
 
 public interface INode {
-    String getNode();
+    String getCode();
     String getRenderer();
 
     default Stream<INode> toStream() {
