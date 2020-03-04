@@ -1,50 +1,45 @@
+import implementations.CompositeNode;
 import implementations.MyStructure;
+import implementations.Node;
 import interfaces.ICompositeNode;
 import interfaces.INode;
+import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.internal.util.reflection.Whitebox;
 
 import java.util.Arrays;
 
-import static org.mockito.Mockito.when;
 
 public class MyStructureTest {
 
-    @Mock   private MyStructure mockedStructure;
-    @Mock   private INode mockedNode;
-    @Mock   private INode mockedNode2;
-    @Mock   private ICompositeNode mockedCompositeNode;
+    public INode node = new Node("Node", "Renderer");
+    public INode node1 = new Node("Node1", "Renderer1");
+    public ICompositeNode compositeNode = new CompositeNode("CompositeNode", "CompositeRenderer", Arrays.asList(node, node1));
+    public ICompositeNode compositeNode1 = new CompositeNode("CompositeNode1", "CompositeRenderer1", Arrays.asList(node, node1, compositeNode));
+    public MyStructure structure = new MyStructure();
 
     @Test
-    void countTest_NoNodesPresent_mustReturnZero(){
-        mockedStructure = new MyStructure();
-        Assertions.assertEquals(0, mockedStructure.count());
+    public void countTest_NoNodesPresent_mustReturnZero(){
+        Assertions.assertEquals(0, structure.count());
     }
 
     @Test
-    void countTest_OnlySimpleNodesPresent_mustReturnSimpleNodesCount(){
-        when(mockedNode.getNode()).thenReturn("Node1");
-        when(mockedNode.getRenderer()).thenReturn("Renderer1");
-        when(mockedNode2.getNode()).thenReturn("Node2");
-        when(mockedNode2.getRenderer()).thenReturn("Renderer2");
-        Whitebox.setInternalState(mockedStructure, "nodes", Arrays.asList(mockedNode, mockedNode2));
+    public void countTest_OnlySimpleNodesPresent_mustReturnSimpleNodesCount(){
+        structure.nodes = Arrays.asList(node, node1);
 
-        Assertions.assertEquals(2, mockedStructure.count());
+        Assertions.assertEquals(2, structure.count());
     }
 
     @Test
-    void countTest_ComplexPresent_mustReturnAllInnerNodesCount(){
-        when(mockedNode.getNode()).thenReturn("Node1");
-        when(mockedNode.getRenderer()).thenReturn("Renderer1");
-        when(mockedNode2.getNode()).thenReturn("Node2");
-        when(mockedNode2.getRenderer()).thenReturn("Renderer2");
-        when(mockedCompositeNode.getNode()).thenReturn("CompositeNode");
-        when(mockedCompositeNode.getRenderer()).thenReturn("CompositeRenderer");
-        when(mockedCompositeNode.getNodes()).thenReturn(Arrays.asList(mockedNode, mockedNode2));
-        Whitebox.setInternalState(mockedStructure, "nodes", Arrays.asList(mockedNode, mockedNode2, mockedCompositeNode));
+    public void countTest_ComplexPresent_mustReturnAllInnerNodesCount(){
+        structure.nodes = Arrays.asList(node, node1, compositeNode);
 
-        Assertions.assertEquals(5, mockedStructure.count());
+        Assertions.assertEquals(5, structure.count());
+    }
+
+    @Test
+    public void countTest_ComplexInsideOfComplexPresent_mustReturnAllInnerNodesCount(){
+        structure.nodes = Arrays.asList(node, node1, compositeNode, compositeNode1);
+
+        Assertions.assertEquals(11, structure.count());
     }
 }
