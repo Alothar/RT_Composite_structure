@@ -22,7 +22,7 @@ public class MyStructure implements IMyStructure {
     }
 
     public int count() {
-        if(nodes.isEmpty())
+        if(nodes == null)
             return 0;
         return (int)nodes.stream().flatMap(INode::toStream).count();
     }
