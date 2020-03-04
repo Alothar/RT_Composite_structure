@@ -15,7 +15,7 @@ public class MyStructureTest {
     public INode node1 = new Node("Node1", "Renderer1");
     public ICompositeNode compositeNode = new CompositeNode("CompositeNode", "CompositeRenderer", Arrays.asList(node, node1));
     public ICompositeNode compositeNode1 = new CompositeNode("CompositeNode1", "CompositeRenderer1", Arrays.asList(node, node1, compositeNode));
-    public MyStructure structure = new MyStructure();
+    public MyStructure structure = new MyStructure(null);
 
     @Test
     public void countTest_NoNodesPresent_mustReturnZero(){
@@ -24,21 +24,21 @@ public class MyStructureTest {
 
     @Test
     public void countTest_OnlySimpleNodesPresent_mustReturnSimpleNodesCount(){
-        structure.nodes = Arrays.asList(node, node1);
+        structure = new MyStructure(Arrays.asList(node, node1));
 
         Assertions.assertEquals(2, structure.count());
     }
 
     @Test
     public void countTest_ComplexPresent_mustReturnAllInnerNodesCount(){
-        structure.nodes = Arrays.asList(node, node1, compositeNode);
+        structure = new MyStructure(Arrays.asList(node, node1, compositeNode));
 
         Assertions.assertEquals(5, structure.count());
     }
 
     @Test
     public void countTest_ComplexInsideOfComplexPresent_mustReturnAllInnerNodesCount(){
-        structure.nodes = Arrays.asList(node, node1, compositeNode, compositeNode1);
+        structure = new MyStructure(Arrays.asList(node, node1, compositeNode, compositeNode1));
 
         Assertions.assertEquals(11, structure.count());
     }
