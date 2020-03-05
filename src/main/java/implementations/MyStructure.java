@@ -14,7 +14,13 @@ public class MyStructure implements IMyStructure {
     }
 
     public INode findByCode(String code) {
-        return null;
+        if(code == null)
+            return nodes.stream().flatMap(INode::toStream)
+                    .filter(n -> n.getCode() == null)
+                    .findFirst().orElse(null);
+        return nodes.stream().flatMap(INode::toStream)
+                .filter(n -> code.equals(n.getCode()))
+                .findFirst().orElse(null);
     }
 
     public INode findByRenderer(String renderer) {
