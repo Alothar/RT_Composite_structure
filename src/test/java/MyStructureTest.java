@@ -50,10 +50,10 @@ public class MyStructureTest {
     }
 
     @Test
-    public void findByCodeTest_NoNodesPresent_mustReturnNulls(){
+    public void findByCodeTest_NoNodesPresent_mustReturnNull(){
+        structure = new MyStructure(new ArrayList<>());
+
         Assertions.assertNull(structure.findByCode(null));
-        Assertions.assertNull(structure.findByCode(""));
-        Assertions.assertNull(structure.findByCode(" "));
     }
 
     @Test
@@ -79,6 +79,6 @@ public class MyStructureTest {
         structure = new MyStructure(Arrays.asList(compositeNode, compositeNode1, node, node1, node_nulls));
 
         Assertions.assertEquals(compositeNode, structure.findByCode("CompositeNode"));
-        Assertions.assertEquals(compositeNode1, structure.findByCode("CompositeNode"));
+        Assertions.assertEquals(compositeNode1, structure.findByCode("CompositeNode1"));
     }
 }
