@@ -24,7 +24,13 @@ public class MyStructure implements IMyStructure {
     }
 
     public INode findByRenderer(String renderer) {
-        return null;
+        if(renderer == null)
+            return nodes.stream().flatMap(INode::toStream)
+                    .filter(n -> n.getRenderer() == null)
+                    .findFirst().orElse(null);
+        return nodes.stream().flatMap(INode::toStream)
+                .filter(n -> renderer.equals(n.getRenderer()))
+                .findFirst().orElse(null);
     }
 
     public int count() {
