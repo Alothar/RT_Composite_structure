@@ -81,4 +81,37 @@ public class MyStructureTest {
         Assertions.assertEquals(compositeNode, structure.findByCode("CompositeNode"));
         Assertions.assertEquals(compositeNode1, structure.findByCode("CompositeNode1"));
     }
+
+    @Test
+    public void findByRendererTest_NoNodesPresent_mustReturnNull(){
+        structure = new MyStructure(new ArrayList<>());
+
+        Assertions.assertNull(structure.findByRenderer(null));
+    }
+
+    @Test
+    public void findByRendererTest_OnlySimpleNodesPresent_mustReturnSimpleNodes(){
+        structure = new MyStructure(Arrays.asList(node, node1, node_nulls));
+
+        Assertions.assertEquals(node_nulls, structure.findByRenderer(null));
+        Assertions.assertEquals(node, structure.findByRenderer("Renderer"));
+        Assertions.assertEquals(node1, structure.findByRenderer("Renderer1"));
+    }
+
+    @Test
+    public void findByRendererTest_ComplexPresent_mustReturnSimpleNodes(){
+        structure = new MyStructure(Arrays.asList(compositeNode, node, node1, node_nulls));
+
+        Assertions.assertEquals(node_nulls, structure.findByRenderer(null));
+        Assertions.assertEquals(node, structure.findByRenderer("Renderer"));
+        Assertions.assertEquals(node1, structure.findByRenderer("Renderer1"));
+    }
+
+    @Test
+    public void findByRendererTest_ComplexPresent_mustReturnComplexNodes(){
+        structure = new MyStructure(Arrays.asList(compositeNode, compositeNode1, node, node1, node_nulls));
+
+        Assertions.assertEquals(compositeNode, structure.findByRenderer("CompositeRenderer"));
+        Assertions.assertEquals(compositeNode1, structure.findByRenderer("CompositeRenderer1"));
+    }
 }
