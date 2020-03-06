@@ -5,14 +5,23 @@ import interfaces.INode;
 
 import java.util.List;
 
+/**
+ * MyStructure interface implementation.
+ * */
 public class MyStructure implements IMyStructure {
 
     private List<INode> nodes;
 
+    /**
+     * All-args constructor.
+     *
+     * @param nodes nested Node List to set for this Structure.
+     * */
     public MyStructure(List<INode> nodes) {
         this.nodes = nodes;
     }
 
+    @Override
     public INode findByCode(String code) {
         if(code == null)
             return nodes.stream().flatMap(INode::toStream)
@@ -23,6 +32,7 @@ public class MyStructure implements IMyStructure {
                 .findFirst().orElse(null);
     }
 
+    @Override
     public INode findByRenderer(String renderer) {
         if(renderer == null)
             return nodes.stream().flatMap(INode::toStream)
@@ -33,6 +43,7 @@ public class MyStructure implements IMyStructure {
                 .findFirst().orElse(null);
     }
 
+    @Override
     public int count() {
         if(nodes == null)
             return 0;
